@@ -1,6 +1,13 @@
 class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
+
+  def after_index
+    @main_pages = Page.all(:parent => 'main_page')
+    @children_pages = Page.all(:parent => @page.title.downcase)
+  end
+
+
   def list
     @pages = Page.all
 
@@ -8,11 +15,6 @@ class PagesController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @pages }
     end
-  end
-
-  def after_index
-    @main_pages = Page.all(:parent => 'main_page')
-    @children_pages = Page.all(:parent => @page.title.downcase)
   end
 
   def index
@@ -28,6 +30,8 @@ class PagesController < ApplicationController
   # GET /pages/1
   # GET /pages/1.json
   def show
+    @main_pages = Page.all(:parent => 'main_page')
+
     @page = Page.find(params[:id])
 
     respond_to do |format|

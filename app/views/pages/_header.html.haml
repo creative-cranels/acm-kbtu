@@ -10,36 +10,3 @@
 %p#notice= notice
 
 %hr
-
-  %p
-    %b Title:
-    = @page.title
-  %p
-    %b Path:
-    = @page.path
-  %p
-    %b Body:
-    = @page.body
-  %p
-    %b Parent:
-    = @page.parent
-
-%hr
-
-- @children_pages.each do |page|
-
-  %p
-    %b Title:
-    = page.title
-  %p
-    %b Path:
-    = page.path
-  %p
-    %b Body:
-    = page.body
-  %p
-    %b Parent:
-    = page.parent
-
-  %hr
-
