@@ -1,4 +1,15 @@
 AcmKbtu::Application.routes.draw do
+
+  root :to => "pages#index"
+
+  match 'page/:path' => 'pages#controll'
+
+  resources :pages
+
+  match 'list' => 'pages#list'
+
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
