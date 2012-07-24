@@ -8,4 +8,10 @@ class Page
 
   timestamps!
 
+  belongs_to :user
+
+  def of?(given_user)
+    given_user && user && user.id == given_user.id
+  end
+
 end
