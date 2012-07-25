@@ -11,10 +11,16 @@ class PagesController < ApplicationController
   def list
     @pages = Page.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @pages }
-    end
+    authorize! :read, @pages
+
+    #if can? current_user, @pages
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @pages }
+      end
+    #else
+      #redirect_to posts_path
+    #end
   end
 
   def index
@@ -46,6 +52,8 @@ class PagesController < ApplicationController
   # GET /pages/new.json
   def new
     @page = Page.new
+
+    authorize! :new, @page
 
     respond_to do |format|
       format.html # new.html.erb
@@ -102,6 +110,7 @@ class PagesController < ApplicationController
   # DELETE /pages/1.json
   def destroy
     @page = Page.find(params[:id])
+
     authorize! :destroy, @page
 
     @page.destroy

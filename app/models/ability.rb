@@ -10,6 +10,7 @@ class Ability
     end
 
     if user.admin?
+      return false if !userd
       can :manage, Page
     else
       can :read, Page
