@@ -4,13 +4,7 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    if user.email == "aza@mail.ru"
-      can :manage, :all
-      return
-    end
-
     if user.admin?
-      return false if !userd
       can :manage, Page
     else
       can :read, Page

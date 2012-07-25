@@ -11,20 +11,17 @@ class PagesController < ApplicationController
   def list
     @pages = Page.all
 
-    authorize! :read, @pages
+    authorize! :read, Page
 
-    #if can? current_user, @pages
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @pages }
-      end
-    #else
-      #redirect_to posts_path
-    #end
+    respond_to do |format|
+    format.html # index.html.erb
+      format.json { render json: @pages }
+    end
+
   end
 
   def index
-    @page = Page.all(:path => '1')[0]
+    @page = Page.all(:path => '1', :order => :title.asc)[0]
     authorize! :read, @page
 
     after_index
