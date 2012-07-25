@@ -2,16 +2,10 @@
 %p
   %b Title:
   = @page.title
-/%p
-/   %b Path:
-/   = @page.path
 %p
   %b Body:
   = @page.body
-/ %p
-/   %b Parent:
-/   = @page.parent
-= link_to " read more ", '/pages/'+@page.id
+= link_to " read more ", '/pages/'+@page.path
 %hr
 
 
@@ -21,15 +15,8 @@
   %p
     %b Title:
     = page.title
-  / %p
-  /   %b Path:
-  /   = page.path
   %p
     %b Body:
     = page.body[0..500] + ' ...'
-  / %p
-  /   %b Parent:
-  /   = page.parent
-
   %hr
-  = link_to " read more ", '/pages/'+page.id
+  = link_to " read more ", '/pages/'+page.path

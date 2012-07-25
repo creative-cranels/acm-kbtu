@@ -6,7 +6,7 @@ AcmKbtu::Application.routes.draw do
 
   root :to => "pages#index"
 
-  match 'page/:path' => 'pages#controll'
+  match 'node/:path' => 'pages#controll'
 
   resources :pages
 

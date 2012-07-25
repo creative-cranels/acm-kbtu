@@ -20,6 +20,7 @@ gem 'mongo_mapper' #, '= 0.10.1'
 
 gem 'devise'      # authentication
 gem 'mm-devise'
+gem 'cancan'
 
 # Gems used only for assets and not required
 # in production environments by default.

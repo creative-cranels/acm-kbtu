@@ -1,3 +1,5 @@
+= render 'header'
+
 %h1 Listing pages
 
 %table
@@ -16,7 +18,7 @@
       %td= page.path
       %td= page.body
       %td= page.parent
-      %td= link_to 'Show', page
+      %td= link_to 'Show', '/pages/'+page.path
       %td= link_to 'Edit', edit_page_path(page)
       %td= link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete
 

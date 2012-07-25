@@ -1,6 +1,9 @@
 class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
+  def before_load_header
+    @main_pages = Page.all(:parent => 'main_page')
+  end
 
   def after_index
     @main_pages = Page.all(:parent => 'main_page')
@@ -9,6 +12,8 @@ class PagesController < ApplicationController
 
 
   def list
+    before_load_header
+
     @pages = Page.all
 
     respond_to do |format|
@@ -30,9 +35,9 @@ class PagesController < ApplicationController
   # GET /pages/1
   # GET /pages/1.json
   def show
-    @main_pages = Page.all(:parent => 'main_page')
+    before_load_header
 
-    @page = Page.find(params[:id])
+    @page = Page.all(:path => params[:id])[0]
 
     respond_to do |format|
       format.html # show.html.erb
