@@ -9,9 +9,15 @@ class User
   # rememberable
   key :remember_created_at, Time
 
+  ROLES = ["admin", "moderator", "user"]
+
   key :email, String
   key :encrypted_password, String
 
+  key :role, String, :default => "user"
+
   timestamps!
+
+  def admin?; role == "admin" ; end
 
 end

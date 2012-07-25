@@ -19,6 +19,8 @@ class PagesController < ApplicationController
 
   def index
     @page = Page.all(:path => '1')[0]
+    authorize! :read, @page
+
     after_index
   end
 
@@ -60,6 +62,8 @@ class PagesController < ApplicationController
   # POST /pages.json
   def create
     @page = Page.new(params[:page])
+    authorize! :create, @page
+
     @page.parent.downcase!
 
     respond_to do |format|
@@ -77,6 +81,7 @@ class PagesController < ApplicationController
   # PUT /pages/1.json
   def update
     @page = Page.find(params[:id])
+    authorize! :update, @page
 
     page_update = params[:page]
 
@@ -97,6 +102,8 @@ class PagesController < ApplicationController
   # DELETE /pages/1.json
   def destroy
     @page = Page.find(params[:id])
+    authorize! :destroy, @page
+
     @page.destroy
 
     respond_to do |format|
