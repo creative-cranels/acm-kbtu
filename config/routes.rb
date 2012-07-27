@@ -1,17 +1,17 @@
 AcmKbtu::Application.routes.draw do
 
+  resources :nodes
+
   devise_for :users
 
   resources :users
 
   root :to => "pages#index"
 
-  match 'node/:path' => 'pages#controll'
-
   resources :pages
 
   match 'list' => 'pages#list'
-
+  match 'node/:path' => 'pages#node_controll'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -6,6 +6,8 @@ class Ability
 
     if user.admin?
       can :manage, :all
+    elsif user.moderator?
+      can :manage, [Page, Node]
     else
       can :read, Page
     end

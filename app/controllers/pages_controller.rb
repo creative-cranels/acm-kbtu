@@ -2,14 +2,25 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def before_load_header
-    @main_pages = Page.all(:parent => 'main_page').sort! {|a, b| a.order <=> b.order}
+    @nodes = Node.all.sort! {|a, b| a.order <=> b.order}
   end
 
-  def after_index
+
+  def index
     before_load_header
-    @children_pages = Page.all(:parent => @page.title.downcase).sort! {|a, b| a.order <=> b.order}
+    @children_pages = Page.all(:parent => Node.all(:order => '0')[0].name.downcase).sort! {|a, b| a.order <=> b.order}
+    rt = Page.all
+    #raise rt
+    #raise Node.all(:order => '0')[0].name.downcase
   end
 
+  def node_controll
+    before_load_header
+    @node = Node.all(:path => params[:path])[0]
+    raise @node
+    @children_pages = Page.all(:parent => @node.name.downcase).sort! {|a, b| a.order <=> b.order}
+    redirect_to root_url
+  end
 
   def list
     before_load_header
@@ -22,18 +33,6 @@ class PagesController < ApplicationController
     format.html # index.html.erb
       format.json { render json: @pages }
     end
-  end
-
-  def index
-    @page = Page.all(:path => '1', :order => :title.asc)[0]
-    authorize! :read, @page
-
-    after_index
-  end
-
-  def controll
-    @page = Page.all(:path => params[:path])[0]
-    after_index
   end
 
   # GET /pages/1
@@ -106,7 +105,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.update_attributes(page_update)
-        format.html { redirect_to '/'+path, notice: 'Page was successfully updated.' }
+        format.html { redirect_to list_path, notice: 'Page was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

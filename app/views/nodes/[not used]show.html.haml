@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @node.name
+%p
+  %b Path:
+  = @node.path
+%p
+  %b Order:
+  = @node.order
+
+= link_to 'Edit', edit_node_path(@node)
+\|
+= link_to_function "Back", "history.go(-1)"

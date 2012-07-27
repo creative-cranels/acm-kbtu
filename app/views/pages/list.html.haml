@@ -1,10 +1,25 @@
-= render 'header'
+%h1 Listing nodes
 
+%table
+  %tr
+    %th Path
+    %th order
+    %th Name
+    %th
+  - @nodes.each do |node|
+    %tr
+      %td= node.path
+      %td= node.order
+      %td= node.name
+      %td= link_to 'Edit', '/nodes/'+node.path+'/edit'
+= link_to 'New node', new_node_path
+
+%br
 %h1 Listing pages
 
 %table
   %tr
-    %th Parent
+    %th Parent node
     %th Path
     %th Order
     %th Title
@@ -26,6 +41,4 @@
       %td= link_to 'Show', '/pages/'+page.path
       %td= link_to 'Edit', edit_page_path(page)
       %td= link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
+= link_to 'Add page', new_page_path
