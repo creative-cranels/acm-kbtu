@@ -2,12 +2,12 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def before_load_header
-    @main_pages = Page.all(:parent => 'main_page')
+    @main_pages = Page.all(:parent => 'main_page').sort! {|a, b| a.order <=> b.order}
   end
 
   def after_index
-    @main_pages = Page.all(:parent => 'main_page')
-    @children_pages = Page.all(:parent => @page.title.downcase)
+    before_load_header
+    @children_pages = Page.all(:parent => @page.title.downcase).sort! {|a, b| a.order <=> b.order}
   end
 
 
@@ -22,7 +22,6 @@ class PagesController < ApplicationController
     format.html # index.html.erb
       format.json { render json: @pages }
     end
-
   end
 
   def index
@@ -66,6 +65,7 @@ class PagesController < ApplicationController
   # GET /pages/1/edit
   def edit
     @page = Page.find(params[:id])
+    authorize! :edit, @page
   end
 
   # POST /pages
@@ -74,11 +74,11 @@ class PagesController < ApplicationController
     @page = Page.new(params[:page])
     authorize! :create, @page
 
-    @page.parent.downcase!
+    @page.before_save(@page)
 
     respond_to do |format|
       if @page.save
-        format.html { redirect_to @page, notice: 'Page was successfully created.' }
+        format.html { redirect_to '/pages/'+@page.path, notice: 'Page was successfully created.' }
         format.json { render json: @page, status: :created, location: @page }
       else
         format.html { render action: "new" }
@@ -94,12 +94,19 @@ class PagesController < ApplicationController
     authorize! :update, @page
 
     page_update = params[:page]
-
     page_update[:parent].downcase!
+    page_update[:body] = '.' if page_update[:parent] == 'main_page'
+    path = ''
+    if page_update[:parent] == 'main_page'
+      path = 'node/'
+    else
+      path = 'pages/'
+    end
+    path += page_update[:path]
 
     respond_to do |format|
       if @page.update_attributes(page_update)
-        format.html { redirect_to @page, notice: 'Page was successfully updated.' }
+        format.html { redirect_to '/'+path, notice: 'Page was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -118,7 +125,7 @@ class PagesController < ApplicationController
     @page.destroy
 
     respond_to do |format|
-      format.html { redirect_to pages_url }
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end

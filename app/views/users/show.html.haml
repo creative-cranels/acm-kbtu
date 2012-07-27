@@ -6,6 +6,9 @@
 %p
   %b Encrypted password:
   = @user.encrypted_password
+%p
+  %b Role:
+  = @user.role
 
 = link_to 'Edit', edit_user_path(@user)
 \|

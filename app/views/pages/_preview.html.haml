@@ -1,22 +1,12 @@
 = render 'header'
-%p
-  %b Title:
-  = @page.title
-%p
-  %b Body:
-  = @page.body
-= link_to " read more ", '/pages/'+@page.path
-%hr
-
-
-
 - @children_pages.each do |page|
-
   %p
     %b Title:
     = page.title
   %p
     %b Body:
-    = page.body[0..500] + ' ...'
-  %hr
+    = page.body[0..500]
+    - if page.body.length>500
+      %i ...
   = link_to " read more ", '/pages/'+page.path
+  %hr
