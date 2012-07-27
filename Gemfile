@@ -22,6 +22,9 @@ gem 'devise'      # authentication
 gem 'mm-devise'
 gem 'cancan'
 
+# Authorization
+gem 'cancan'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

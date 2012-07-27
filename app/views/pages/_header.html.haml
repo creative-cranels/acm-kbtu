@@ -1,3 +1,10 @@
+- if current_user && current_user.admin?
+  = link_to 'New Page', new_page_path
+
+  = link_to 'List', list_path
+
+  %hr
+
 - @main_pages.each do |page|
   = link_to "#{page.title}", '/node/'+page.path
 
