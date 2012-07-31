@@ -3,6 +3,6 @@ class Node
 
   key :name, String, :required => true
   key :path, String, :required => true
-  key :order, String
+  key :order, Integer, :required => true
 
 end

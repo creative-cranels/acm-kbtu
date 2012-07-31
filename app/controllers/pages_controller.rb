@@ -2,24 +2,28 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def before_load_header
-    @nodes = Node.all.sort! {|a, b| a.order <=> b.order}
+    @nodes = Node.all.sort {|a, b| a.order <=> b.order}
   end
 
 
   def index
     before_load_header
-    @children_pages = Page.all(:parent => Node.all(:order => '0')[0].name.downcase).sort! {|a, b| a.order <=> b.order}
-    rt = Page.all
-    #raise rt
-    #raise Node.all(:order => '0')[0].name.downcase
+    if Node.all(:order => '0').empty?
+      @children_pages = []
+    else
+      @children_pages = Page.all(:parent => Node.all.sort {|a, b| a.order <=> b.order}[0].name.downcase).sort! {|a, b| a.order <=> b.order}
+    end
   end
 
   def node_controll
     before_load_header
     @node = Node.all(:path => params[:path])[0]
-    raise @node
-    @children_pages = Page.all(:parent => @node.name.downcase).sort! {|a, b| a.order <=> b.order}
-    redirect_to root_url
+    if Node.all(:path => params[:path]).empty? || Page.all(:parent => @node.name.downcase).empty?
+      @children_pages = []
+    else
+      @children_pages = Page.all(:parent => @node.name.downcase).sort {|a, b| a.order <=> b.order}
+    end
+    render :action => "index"
   end
 
   def list
