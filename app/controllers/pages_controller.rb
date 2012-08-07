@@ -31,7 +31,9 @@ class PagesController < ApplicationController
 
     @pages = Page.all
 
-    authorize! :read, Page
+    authorize! :read, @pages
+
+    @users = User.all
 
     respond_to do |format|
     format.html # index.html.erb

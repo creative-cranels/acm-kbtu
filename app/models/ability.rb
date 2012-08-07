@@ -11,7 +11,6 @@ class Ability
     else
       can :read, Page
 
-      can :manage, :all #temporarily
 
     end
 

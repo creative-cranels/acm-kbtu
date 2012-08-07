@@ -20,5 +20,6 @@ class User
 
   def admin?; role == "admin" ; end
   def moderator?; role == "moderator" ; end
+  def user?; role != "admin" && role != "moderator" ; end
 
 end
