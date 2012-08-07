@@ -5,7 +5,6 @@ class PagesController < ApplicationController
     @nodes = Node.all.sort! {|a, b| a.order <=> b.order}
   end
 
-
   def index
     before_load_header
     @children_pages = Page.all(:parent => Node.all(:order => '0')[0].name.downcase).sort! {|a, b| a.order <=> b.order}
