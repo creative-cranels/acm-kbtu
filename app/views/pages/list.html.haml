@@ -6,13 +6,13 @@
 %table
   %tr
     %th Path
-    %th order
+    %th Position
     %th Name
     %th
   - @nodes.each do |node|
     %tr
       %td= node.path
-      %td= node.order
+      %td= node.position
       %td= node.name
       %td= link_to 'Edit', '/nodes/'+node.path+'/edit'
       %td= link_to 'Destroy', node, :confirm => 'Are you sure?', :method => :delete
@@ -47,24 +47,3 @@
       %td= link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete
 = link_to 'Add page', new_page_path
 
-%h1 Listing users
-
-%table
-  %tr
-    %th Email
-    %th Role
-    %th
-    %th
-    %th
-
-  - @users.each do |user|
-    %tr
-      %td= user.email
-      %td= user.role
-      %td= link_to 'Show', user
-      %td= link_to 'Edit role', edit_user_path(user)
-      %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New User', new_user_path

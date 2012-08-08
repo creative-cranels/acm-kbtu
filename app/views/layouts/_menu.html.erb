@@ -6,12 +6,12 @@
   |
   <% if current_user.admin? || current_user.moderator?  %>
     <%= link_to 'edit..', list_path %>
+    <%= link_to('users', users_path)  %>
   <% end %>
   <h1><%= current_user.email %></h1>
 <% else %>
   <%= link_to('Login', new_user_session_path)  %>
   <%= link_to('Register', new_user_registration_path)  %>
 <% end %>
-
 
 <hr/>

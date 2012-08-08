@@ -59,7 +59,7 @@ class NodesController < ApplicationController
   # PUT /nodes/1
   # PUT /nodes/1.json
   def update
-    @node = Node.all(:path => params[:id])[0]
+    @node = Node.find(params[:id])
     authorize! :edit, @node
 
     respond_to do |format|

@@ -10,8 +10,6 @@ class Ability
       can :manage, [Page, Node]
     else
       can :read, Page
-
-
     end
 
     # Define abilities for the passed in user here. For example:

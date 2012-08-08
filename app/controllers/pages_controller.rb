@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def before_load_header
-    @nodes = Node.all.sort {|a, b| a.order <=> b.order}
+    @nodes = Node.all.sort {|a, b| a.position <=> b.position}
   end
 
 
@@ -11,7 +11,7 @@ class PagesController < ApplicationController
     if Node.all(:order => '0').empty?
       @children_pages = []
     else
-      @children_pages = Page.all(:parent => Node.all.sort {|a, b| a.order <=> b.order}[0].name.downcase).sort! {|a, b| a.order <=> b.order}
+      @children_pages = Page.all(:parent => Node.all.sort {|a, b| a.position <=> b.position}[0].name.downcase).sort! {|a, b| a.order <=> b.order}
     end
   end
 

@@ -1,6 +1,11 @@
 %h1 Editing user
 
+= "Encrypted Password: [" + @user.encrypted_password + "]"
+%br
+
+
 = render 'form'
+
 
 = link_to 'Show', @user
 \|
