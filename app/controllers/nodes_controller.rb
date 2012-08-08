@@ -25,6 +25,7 @@ class NodesController < ApplicationController
   # GET /nodes/new.json
   def new
     @node = Node.new
+    authorize! :edit, @node
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,12 +36,14 @@ class NodesController < ApplicationController
   # GET /nodes/1/edit
   def edit
     @node = Node.all(:path => params[:id])[0]
+    authorize! :edit, @node
   end
 
   # POST /nodes
   # POST /nodes.json
   def create
     @node = Node.new(params[:node])
+    authorize! :edit, @node
 
     respond_to do |format|
       if @node.save
@@ -56,7 +59,8 @@ class NodesController < ApplicationController
   # PUT /nodes/1
   # PUT /nodes/1.json
   def update
-    @node = Node.all(:path => params[:id])[0]
+    @node = Node.find(params[:id])
+    authorize! :edit, @node
 
     respond_to do |format|
       if @node.update_attributes(params[:node])
@@ -73,6 +77,7 @@ class NodesController < ApplicationController
   # DELETE /nodes/1.json
   def destroy
     @node = Node.find(params[:id])
+    authorize! :edit, @node
     @node.destroy
 
     respond_to do |format|

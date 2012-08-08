@@ -3,19 +3,13 @@
 %table
   %tr
     %th Email
-    %th Encrypted password
-    %th
+    %th Role
     %th
     %th
 
   - @users.each do |user|
     %tr
       %td= user.email
-      %td= user.encrypted_password
-      %td= link_to 'Show', user
+      %td= user.role
       %td= link_to 'Edit', edit_user_path(user)
       %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New User', new_user_path

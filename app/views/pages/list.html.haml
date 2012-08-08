@@ -1,17 +1,21 @@
+- if current_user == nil || (current_user != nil && current_user.user?)
+  %h1 booow
+
 %h1 Listing nodes
 
 %table
   %tr
     %th Path
-    %th order
+    %th Position
     %th Name
     %th
   - @nodes.each do |node|
     %tr
       %td= node.path
-      %td= node.order
+      %td= node.position
       %td= node.name
       %td= link_to 'Edit', '/nodes/'+node.path+'/edit'
+      %td= link_to 'Destroy', node, :confirm => 'Are you sure?', :method => :delete
 = link_to 'New node', new_node_path
 
 %br
@@ -42,3 +46,4 @@
       %td= link_to 'Edit', edit_page_path(page)
       %td= link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete
 = link_to 'Add page', new_page_path
+

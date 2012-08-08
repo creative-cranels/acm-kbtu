@@ -1,7 +1,12 @@
 %h1 Editing user
 
+= "Encrypted Password: [" + @user.encrypted_password + "]"
+%br
+
+
 = render 'form'
+
 
 = link_to 'Show', @user
 \|
-= link_to 'Back', users_path
+= link_to_function "Back", "history.go(-1)"#pages_path
