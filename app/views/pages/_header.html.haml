@@ -1,6 +1,4 @@
-- @nodes.each do |node|
-  = link_to "#{node.name}", '/node/'+node.path
-
-%hr
-
-%p#notice= notice
+%ul{:class => "nav nav-tabs"}
+  - @nodes.each do |node|
+    %li{:class => "#{@this_node.to_i == node.path.to_i && :active} node-btn"}
+      = link_to "#{node.name}", '/node/'+node.path

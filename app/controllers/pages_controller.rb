@@ -3,10 +3,12 @@ class PagesController < ApplicationController
   # GET /pages.json
   def before_load_header
     @nodes = Node.all.sort {|a, b| a.position <=> b.position}
+    @this_node = params[:path]
   end
 
   def index
     before_load_header
+    @this_node = 1
     if Node.all(:order => '0').empty?
       @children_pages = []
     else
@@ -16,6 +18,7 @@ class PagesController < ApplicationController
 
   def node_controll
     before_load_header
+
     @node = Node.all(:path => params[:path])[0]
     if Node.all(:path => params[:path]).empty? || Page.all(:parent => @node.name.downcase).empty?
       @children_pages = []
@@ -79,6 +82,11 @@ class PagesController < ApplicationController
     authorize! :create, @page
 
     @page.before_save(@page)
+
+    @page.user_id = current_user.id
+
+    u = User.find(@page.user_id)
+    @page.author = u.email
 
     respond_to do |format|
       if @page.save

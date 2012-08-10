@@ -1,12 +1,17 @@
 = render 'header'
-- @children_pages.each do |page|
-  %p
-    %b Title:
-    = page.title
-  %p
-    %b Body:
-    = page.body[0..500]
-    - if page.body.length>500
-      %i ...
-  = link_to " read more ", '/pages/'+page.path
-  %hr
+.block
+  - @children_pages.each do |page|
+    .each-page
+      %p{:class => "page-title"}
+        = page.title
+      %p{:class => "page-author-date"}
+        Автор:
+        = page.author
+        создан в
+        = l page.created_at
+      %hr
+      %p{:class => "page-body"}
+        = page.body[0..500]
+        - if page.body.length>500
+          %i ...
+      = link_to " read more ", '/pages/'+page.path, :class => 'btn btn-mini btn'

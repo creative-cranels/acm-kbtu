@@ -4,6 +4,7 @@ class Page
   key :title, String, :required => true
   key :path, String, :required => true
   key :body, String, :required => true
+  key :author, String, :required => true
   key :order, String
   key :parent, String
 

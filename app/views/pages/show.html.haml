@@ -1,20 +1,19 @@
 = render 'header'
+.block
+  %p
+    %b Title:
+    = @page.title
+  %p
+    %b Path:
+    = @page.path
+  %p
+    %b Parent:
+    = @page.parent  
+  %p
+    %b Body:
+    = @page.body
 
-%p
-  %b Title:
-  = @page.title
-%p
-  %b Path:
-  = @page.path
-%p
-  %b Parent:
-  = @page.parent  
-%p
-  %b Body:
-  = @page.body
-
-- if current_user != nil
-  - if current_user.admin?  || current_user.moderator?
-    = link_to 'Edit', edit_page_path(@page)
-    \|
-= link_to_function "Back", "history.go(-1)"#pages_path
+  - if current_user != nil
+    - if current_user.admin?  || current_user.moderator?
+      = link_to 'Edit', edit_page_path(@page), :class => "btn btn-mini btn-info"
+  = link_to_function "Back", "history.go(-1)", :class => 'btn btn-mini btn-warning'

@@ -3,34 +3,33 @@
 
 %h1 Listing nodes
 
-%table
+%table{:class => "table table-bordered"}
   %tr
     %th Path
     %th Position
     %th Name
-    %th
+    %th Methods
   - @nodes.each do |node|
     %tr
       %td= node.path
       %td= node.position
       %td= node.name
-      %td= link_to 'Edit', '/nodes/'+node.path+'/edit'
-      %td= link_to 'Destroy', node, :confirm => 'Are you sure?', :method => :delete
-= link_to 'New node', new_node_path
+      %td
+        = link_to 'Edit', '/nodes/'+node.path+'/edit', {:class => "btn btn-mini btn-success"}
+        = link_to 'Destroy', node, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-mini btn-danger"
+  = link_to 'New node', new_node_path, {:class => "btn btn-mini btn-info"}
 
 %br
 %h1 Listing pages
 
-%table
+%table{:class => "table table-bordered"}
   %tr
     %th Parent node
     %th Path
     %th Order
     %th Title
     %th Body
-    %th
-    %th
-    %th
+    %th Methods
 
   - @pages.each do |page|
     %tr
@@ -42,8 +41,9 @@
         = page.body[0..100]
         - if page.body.length>100
           %i ->
-      %td= link_to 'Show', '/pages/'+page.path
-      %td= link_to 'Edit', edit_page_path(page)
-      %td= link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete
-= link_to 'Add page', new_page_path
+      %td
+        = link_to 'Show', '/pages/'+page.path, :class => "btn btn-mini"
+        = link_to 'Edit', edit_page_path(page), {:class => "btn btn-mini btn-success"}
+        = link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-mini btn-danger"
+  = link_to 'Add page', new_page_path, :class => "btn btn-mini btn-info"
 
